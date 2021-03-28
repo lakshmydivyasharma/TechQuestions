@@ -1,0 +1,183 @@
+What does a doctype do?
+-	Doctype is found at the top of all documents
+-	Prevent a browser from switching into “quirk mode” when rendering a document
+-	Instructs the browser to render the page 
+-	First thing that needs to be done in text editor, so in atom, it would be html tab
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    
+  </body>
+</html>
+
+
+How do you serve a page with content in multiple languages?
+-	UTF8 is a good way to display content in multiple languages 
+-	For a user to specify the language:
+o	Use the accept language header 
+o	In the lang tag in html doctype – it is specified 
+-	For server side frameworks and CMS (content management system):
+o	i18n modules  these support multi language content and for the client side there are i18n language selectors to change between translations 
+o	i18n is the process of preparing software so that it can support local languages 
+o	stored in yml and json formats
+	Definition: YML
+•	Uses a text file and organizes it into a format which is human readable 
+
+
+What kind of things must you be wary of when design or developing for multilingual sites?
+
+-	Use utf-8 bc it helps support many languages
+-	Use a lang attribute in html head 
+-	Allow a user to change languages easily without hassle 
+-	Avoid designs where amount of text could make or break a design as content can be shorter / longer in other languages 
+-	Be mindful of how colors are perceived 
+-	Formatting dates and currencies and language syntax correctly for other languages 
+-	Use template strings w/ parameters substitutions for each language instead of concatenated strings bc that will break 
+-	Acknowledge some languages don’t read left to right and top to bottom so give it a language reading direction 
+
+
+What are data- attributes good for?
+-	Able to make attributes to be able to get your code to do exactly what you need without using the standard attributes 
+-	Allows for customization of elements 
+-	It’s used for HTML elements 
+-	Example: when I made the drumkit – it worked out
+
+Consider HTML5 as an open web platform. What are the building blocks of HTML5?
+-	Semantics: allows you to describe more precisely what your content is
+-	Connectivity: allows you to communicate with the server in new and innovative ways 
+-	Offline & Storage: allows webpages to store data on the client-side locally and operate offline more efficiently 
+-	Multimedia: making video and audio first-class citizens in the Open Web 
+-	2D/3D graphics and effects: allows a much more diverse range of presentation options 
+-	Performance and integration: providing a greater speed optimization and better usage of computer hardware
+-	Device Access: allowing for the usage of various input and output devices 
+-	Styling: letting authors write more sophisticated themes 
+
+
+Describe the difference between a cookie, sessionStorage and localStorage.
+-	Local storage and session storage are relatively new APIs 
+-	localStorage, sessionStorage and cookies are all client storage solutions; session data is held on the server where it remains under your direct control 
+-	local and session are relatively new so not all legacy browsers will support them 
+o	Definition of legacy browser: 
+	The ability to switch from chrome to another browser and the url will automatically open up in that browser 
+-	localStorage is preferable to sessionStorage if the storing is for ongoing basis 
+-	persisting non-sensitive data within client scripts between pages 
+o	Definition of client scripts: 
+o	JS code which runs on the client, rather than the server 
+-	Session and local allow you to store JS primitives but not objects or arrays 
+
+
+
+
+
+
+LocalStorage:
+-	Stores data with no expiration date, and gets cleared only through JS, or clearing the Browser cache / Locally Stored Data 
+-	Storage limit is the maximum amongst the three 
+-	Only be read on client side 
+
+SessionStorage:
+-	The sessionStorage object stores data only for a session, meaning that the data is stored until the browser (or tab) is closed 
+-	only available for the duration of the browser session and is deleted when the tab or window is closed out; can survive page reloads 
+-	Data is never transferred to the server 
+-	Storage limit is larger than a cookie (at least 5MB)
+-	Only be read on client side 
+
+Cookie:
+-	Stores data that has to be sent back to the server with subsequent requests; expiration varies based on the type and the expiration duration can be eset from either server-side or client-side (typically it is server-side)
+-	Primarily used for server-side reading BUT can be read on the client side too 
+-	Size must be less than 4KB
+-	Can be made secure by setting the httpOnly flag as true for that cookie; this presents  client-side access to that cookie 
+-	Cookies only allow you to store strings 
+
+
+Describe the difference between <script>, <script async> and <script defer>.
+<script> 
+-	Used to define a client-side script 
+-	Stops rendering a process and download and run a script 
+
+<script async>= if async is present:
+-	Script is executed asynchronously with the rest of the page 
+-	Don’t stop rendering process while asynchronously downloading a script; when finishing download it stops rending and runs the script 
+
+<script defer>
+-	Tells the browser to only execute the script file once the HTML document has been fully parsed 
+-	Don’t stop rending process while asynchronously downloading a script; when finishing rendering it runs the script
+-	
+
+Definition of parse: 
+-	Dividing into smallest components to understand from the core
+-	Breaking a program element into their smallest units to create some knowledge for a compiler to understand the syntax and semantics of any programming language 
+
+Definition of compiler: 
+-	Special program that processes statements written in a particular programming language and turns them into machine language or code that a computer’s processes uses 
+
+
+Why is it generally a good idea to position CSS <link>s between <head></head> and JS <script>s just before </body>? Do you know any exceptions?
+
+Placing <link></link> in <head>
+-	Optimize a website 
+-	HTML and CSS are parsed simultaneously 
+-	HTML creates the DOM (document object model) & CSS creates CSSOM (CSS Object Model) 
+-	Both are needed to create the visuals in the website; rendering it together 
+
+Placing <script> before <body>:
+-	Scripts block HTML parsing while they are being downloaded and executed 
+-	Allow the user to see the HTML and CSS before the functionality begins 
+
+Exception: 
+-	Document.write()
+o	Definition: a string containing the text to be written to the document 
+-	Document.write() is bad practice;
+-	If you put the script in the top by header / html, then code needs to manipulate the DOM elements; use he defer attribute which will achieve the same effect of downloading and running the script only after the HTML is parsed 
+
+What is progressive rendering?
+-	Rendering mode in which the program gradually updates small parts of the entire image refining it from low quality to final result rather than focusing on one small part of the image at a time 
+-	It is also known as progressive server side rendering
+-	Whole idea of progressive rendering depends on the concept of streaming HTML from the server to client  
+-	Render the critical content on the server, you start streaming it to the client without waiting for non-critical content   then stream the non-critical content later once it’s rendered on the server.  browser progressively renders the HTML on the page as soon as the chunk for critical content is received; noncritical content will render later when the browser receives it from the server 
+-	Increasing popularity and is more reliable 
+-	Lazy images: 
+o	Images are not loaded all at once, they are loaded when the user scrolls to that part 
+-	Prioritizes visible content 
+-	These are the steps for Progressive Rendering: 
+1)	Browser requests the server for HTML
+2)	Browsers makes API requests and renders the critical content first in the server and streams it to the browser 
+3)	The browser receives the chunk of HTML & renders it on the screen 
+4)	The server renders non-critical content after rendering critical content and streams it to the client 
+5)	The browser receives & renders the non-critical content later 
+6)	Once the entire page is loaded, the browser hydrates interactivity to DOM elements, which is usually attaching event handlers and other interactive behaviors 
+-	Pros
+o	Render on server but stream critical content to client without waiting for non-critical content 
+o	Content is not blocked by the time taken to load JS Bundles 
+o	Page loads faster than both CSR and SSR 
+	CSR: client side rendering 
+	SSR: service side rendering  
+o	Build a good user experience even on slow networks 
+-	Cons
+o	The browser will hydrate the DOM and attach event listeners only after the whole page is loaded; contents show up but cannot be interactive 
+o	No established framework and is dependent on how well the code is written 
+
+Why you would use a srcset attribute in an image tag? Explain the process the browser uses when evaluating the content of this attribute.
+-	Serve different images to users depending on their device width – serve higher quality images to devices with retina display enhances the user experience while serving lower resolution images to low end devices increases performance and decrease data wastage 
+-	The img srcset= “small.jpg 500w, medium.jpg 1000w, large.jpg 2000w”
+-	<Src = “_____” alt = “____” >tells the browser to display the small medium or large jpg graphing depending on the clients resolution
+-	Srcset gives the browser the choice (viewport size, user preference, network condition and so on) 
+
+
+Have you used different HTML templating languages before? 
+-	List of HTML templating languages: 
+o	Pug (formerly Jade)
+o	EREB
+o	Slim
+o	Handlebars
+o	Jinja
+o	Liquid 
+-	Then list which ones you used in your life;
+-	They are all more or less the same and provide similar functionality of escaping content and helpful filters for manipulating the data to be displayed; 
+-	most templating engines will also allow you to inject your own filters in the event you need custom processing before display 
+
